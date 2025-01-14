@@ -1,3 +1,5 @@
+!['TecyLab'](./assets/images/tecylab4_version24.0.png)
+
 # NestJS AWS Serverless Workshop
 
 Workshop práctico sobre desarrollo serverless con NestJS y AWS Lambda.
@@ -30,6 +32,12 @@ Workshop práctico sobre desarrollo serverless con NestJS y AWS Lambda.
 1. Clonar el repositorio
 2. Instalar dependencias
 3. Configurar AWS CLI
+
+## Recursos Adicionales
+
+1. Documentación AWS Lambda [AWS Lambda](https://docs.aws.amazon.com/lambda/).
+2. NestJS Docs [NestJS](https://docs.nestjs.com)
+3. Serverless Framework Docs [Serverless](https://www.serverless.com/framework/docs)
 
 ## Licencia
 
