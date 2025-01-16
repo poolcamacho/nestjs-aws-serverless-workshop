@@ -1,0 +1,66 @@
+service: nestjs-serverless-app
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-1
+  architecture: arm64
+  memorySize: 128
+  timeout: 10
+  environment:
+    NODE_ENV: production
+    DYNAMODB_TABLE: UsersTable
+    DYNAMODB_REGION: us-east-1
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - dynamodb:*
+      Resource: "*"
+      
+functions:
+  api:
+    handler: dist/serverless.handler
+    events:
+      - httpApi:
+          path: /
+          method: ANY
+      - httpApi:
+          path: /{proxy+}
+          method: ANY
+
+resources:
+  Resources:
+    UsersTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: UsersTable
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+        Tags:
+          - Key: Environment
+            Value: production
+
+plugins:
+  - serverless-offline
+
+# package:
+#   individually: true
+#   patterns:
+#     - '!node_modules/**'
+#     - 'node_modules/tslib/**'
+#     - 'node_modules/@nestjs/**'
+#     - 'node_modules/rxjs/**'
+#     - 'node_modules/@vendia/**'
+#     - '!test/**'
+#     - '!docs/**'
+#     - '!*.md'
+#     - '!*.md'
+
+custom:
+  serverless-offline:
+    httPort: 3000
